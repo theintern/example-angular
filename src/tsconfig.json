@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es5",
+      "es2015.collection",
+      "es2015.symbol",
+      "es2015.symbol.wellknown",
+      "es2015.iterable",
+      "dom"
+    ],
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "outDir": "../dist",
+    "typeRoots": [
+      "../node_modules/@types",
+      "../node_modules/intern/types"
+    ],
+    "types": [
+      "intern",
+      "zone.js"
+    ]
+  }
+}

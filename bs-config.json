@@ -1,0 +1,10 @@
+{
+  "files": [
+    "./dist/**/*",
+    "./intern.json"
+  ],
+	"open": false,
+	"server": {
+		"baseDir": [ "dist", "." ]
+	}
+}

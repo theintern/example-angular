@@ -1,0 +1,33 @@
+{
+  "browser": {
+    "loader": {
+      "script": "systemjs",
+      "options": {
+        "baseURL": "/dist"
+      }
+    },
+    "plugins": [
+      "intern-angular-shim.js"
+    ],
+    "suites": [
+      "app/services/user.service.spec",
+      "app/app.component.spec.js",
+      "app/components/welcome.component.spec.js"
+    ]
+  },
+  "configs": {
+    "coverage": {
+      "reporters+": "htmlcoverage",
+      "excludeInstrumentation": "node_modules\\/|\\.spec\\.js$|dist\\/[^\\/]+\\.js$"
+    },
+
+    "wd": {
+      "tunnel": "selenium",
+      "environments": { "browserName": "chrome", "fixSessionCapabilities": "no-detect" }
+    },
+
+    "wdcoverage": {
+      "extends": [ "wd", "coverage" ]
+    }
+  }
+}

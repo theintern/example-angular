@@ -1,0 +1,46 @@
+{
+  "name": "intern-angular",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "clean": "rimraf dist coverage",
+    "copy": "cpx \"src/**/*.{js,html,css}\" dist",
+    "copy:watch": "cpx \"src/**/*.{js,html,css}\" dist --watch",
+    "build": "tsc -p src/",
+    "build:watch": "tsc -p src/ -w",
+    "dist": "concurrently \"npm run build\" \"npm run copy\"",
+    "serve": "lite-server -c=bs-config.json",
+    "prestart": "npm run dist",
+    "start": "concurrently \"npm run build:watch\" \"npm run copy:watch\" \"npm run serve\"",
+    "pretest": "npm run dist",
+    "test": "intern config=@wdcoverage"
+  },
+  "dependencies": {
+    "@angular/common": "^4.2.6",
+    "@angular/compiler": "^4.2.6",
+    "@angular/core": "^4.2.6",
+    "@angular/forms": "^4.2.6",
+    "@angular/http": "^4.2.6",
+    "@angular/platform-browser": "^4.2.6",
+    "@angular/platform-browser-dynamic": "^4.2.6",
+    "@angular/router": "^4.2.6",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.4.2",
+    "systemjs": "0.19.40",
+    "zone.js": "^0.8.12"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.10",
+    "@types/sinon": "^2.3.2",
+    "chokidar-cli": "^1.2.0",
+    "concurrently": "^3.5.0",
+    "cpx": "^1.5.0",
+    "intern": "next",
+    "lite-server": "^2.3.0",
+    "rimraf": "^2.6.1",
+    "sinon": "^2.3.7",
+    "tslint": "^3.15.1",
+    "typescript": "~2.3.0"
+  }
+}
