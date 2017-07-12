@@ -13,7 +13,14 @@ export function translate(load: { source: string; address: string; }) {
 	const basePathParts = url.pathname.split('/');
 
 	basePathParts.pop();
-	const basePath = basePathParts.join('/');
+	let basePath = basePathParts.join('/');
+
+	const baseHref = document.createElement('a');
+	baseHref.href = this.baseURL;
+
+	if (!baseHref.pathname.startsWith('/dist/')) {
+		basePath = basePath.replace(baseHref.pathname, '');
+	}
 
 	load.source = load.source
 		.replace(templateUrlRegex, function(_, _2, resolvedUrl){
