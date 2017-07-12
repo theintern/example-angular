@@ -14,7 +14,8 @@
 			'@angular/router': 'npm:@angular/router/bundles/router.umd.js',
 			'@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
 			'rxjs': 'npm:rxjs',
-			'sinon': 'npm:sinon'
+			'sinon': 'npm:sinon/pkg/sinon.js',
+			'tslib': 'npm:tslib/tslib.js'
 		},
 
 		packages: {
@@ -38,11 +39,6 @@
 
 			rxjs: {
 				defaultExtension: 'js'
-			},
-
-			sinon: {
-				defaultExtension: 'js',
-				main: 'pkg/sinon.js'
 			}
 		}
 	});

@@ -14,7 +14,10 @@
       "es2015.iterable",
       "dom"
     ],
+    "importHelpers": true,
     "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "suppressImplicitAnyIndexErrors": true,
     "outDir": "../dist",
     "typeRoots": [

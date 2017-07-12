@@ -18,6 +18,6 @@ export class WelcomeComponent implements OnInit {
 			'Welcome, ' + this.userService.user.name :
 			'Please log in.';
 
-		this.quoteService.getQuote().subscribe(quote => this.quote = quote);
+		this.quoteService.getQuote().subscribe(quote => this.quote = quote.text);
 	}
 }

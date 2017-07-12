@@ -18,7 +18,7 @@ intern.registerPlugin('angular-shim', () => {
 
 	function loadScripts(scripts: string[]) {
 		return function () {
-			function reducer(previous: Promise<any>, script: string) {
+			function reducer(previous: Promise<void>, script: string) {
 				return previous.then(() => {
 					return intern.loadScript(script);
 				});
@@ -34,7 +34,7 @@ intern.registerPlugin('angular-shim', () => {
 				SystemJS.import('@angular/platform-browser-dynamic/testing')
 			])
 			.then(([
-				{ TestBed, resetFakeAsyncZone },
+				{ TestBed },
 				{ BrowserDynamicTestingModule, platformBrowserDynamicTesting }
 			]) => {
 				TestBed.initTestEnvironment(

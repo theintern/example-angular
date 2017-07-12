@@ -10,8 +10,10 @@
       "intern-angular-shim.js"
     ],
     "suites": [
-      "app/services/user.service.spec",
       "app/app.component.spec.js",
+      "app/services/user.service.spec.js",
+      "app/services/quote.service.spec.js",
+      "app/components/io.component.spec.js",
       "app/components/welcome.component.spec.js"
     ]
   },

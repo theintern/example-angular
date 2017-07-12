@@ -1,10 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
+
+export interface Quote {
+	id: number;
+	text: string;
+}
 
 @Injectable()
 export class QuoteService {
+	constructor(private http: Http) {}
+
 	getQuote() {
-		return Observable.of('a quote!');
+		return this.http.get('/quote')
+			.map(response => response.json() as Quote)
+		;
 	}
 }

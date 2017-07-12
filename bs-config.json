@@ -3,8 +3,12 @@
     "./dist/**/*",
     "./intern.json"
   ],
-	"open": false,
-	"server": {
-		"baseDir": [ "dist", "." ]
-	}
+  "open": false,
+  "logConnections": false,
+  "server": {
+    "baseDir": [ "dist", "." ],
+    "middleware": {
+      "0": null
+    }
+  }
 }

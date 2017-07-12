@@ -28,6 +28,7 @@
     "core-js": "^2.4.1",
     "rxjs": "^5.4.2",
     "systemjs": "0.19.40",
+    "tslib": "^1.7.1",
     "zone.js": "^0.8.12"
   },
   "devDependencies": {
@@ -40,7 +41,7 @@
     "lite-server": "^2.3.0",
     "rimraf": "^2.6.1",
     "sinon": "^2.3.7",
-    "tslint": "^3.15.1",
-    "typescript": "~2.3.0"
+    "tslint": "^5.5.0",
+    "typescript": "^2.4.1"
   }
 }

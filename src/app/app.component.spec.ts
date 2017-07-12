@@ -1,6 +1,6 @@
 import { AppComponent } from './app.component';
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
@@ -13,18 +13,16 @@ describe('AppComponent', () => {
 	let de: DebugElement;
 	let el: HTMLElement;
 
-	beforeEach(() => {
-		return TestBed.configureTestingModule({
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
 				declarations: [ AppComponent ]
 			})
 			.compileComponents()
-			.then(() => {
-				fixture = TestBed.createComponent(AppComponent);
-				comp = fixture.componentInstance;
-				de = fixture.debugElement.query(By.css('h1'));
-				el = de.nativeElement;
-			})
 		;
+		fixture = TestBed.createComponent(AppComponent);
+		comp = fixture.componentInstance;
+		de = fixture.debugElement.query(By.css('h1'));
+		el = de.nativeElement;
 	});
 
 	it('should create component', () => {
