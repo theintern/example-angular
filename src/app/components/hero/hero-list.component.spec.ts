@@ -1,7 +1,7 @@
 const { describe, it, beforeEach } = intern.getPlugin('interface.bdd');
 const { expect } = intern.getPlugin('chai');
 
-import { spy, SinonSpy } from 'sinon';
+import { spy, match, SinonSpy } from 'sinon';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -65,14 +65,14 @@ describe('HeroListComponent', () => {
 		await page.navSpy.lastCall.returnValue;
 
 		// should have navigated
-		expect(page.navSpy.called).to.equal(true, 'navigate called');
+		expect(page.navSpy, 'navigate called').to.have.been.called;
 
 		// composed hero detail will be URL like 'heroes/42'
 		// expect link array with the route path and hero id
 		// first argument to router.navigate is link array
-		const navArgs = page.navSpy.firstCall.args[0];
-		expect(navArgs[0]).to.contain('heroes', 'nav to heroes detail URL');
-		expect(navArgs[1]).to.equal(expectedHero.id, 'expected hero.id');
+		expect(page.navSpy).to.have.been.calledWithExactly(
+			match.array.deepEquals([ '../heroes', expectedHero.id ])
+		);
 
 	});
 
@@ -89,7 +89,7 @@ describe('HeroListComponent', () => {
 
 		// different browsers report color values differently
 		const isExpectedColor = bgColor === 'gold' || bgColor === 'rgb(255, 215, 0)';
-		expect(isExpectedColor).to.equal(true, 'backgroundColor');
+		expect(isExpectedColor, 'backgroundColor').to.be.true;
 	});
 
 	it('the `HighlightDirective` is among the element\'s providers', () => {

@@ -41,7 +41,7 @@ describe('HighlightDirective', () => {
 
 	// color tests
 	it('should have three highlighted elements', () => {
-		expect(des.length).to.equal(3);
+		expect(des).to.have.lengthOf(3);
 	});
 
 	it('should color 1st <h2> background "yellow"', () => {
@@ -82,7 +82,7 @@ describe('HighlightDirective', () => {
 
 	it('cannot inject `HighlightDirective` in 3rd <h2>', () => {
 		const dir = bareH2.injector.get(HighlightDirective, null);
-		expect(dir).to.equal(null);
+		expect(dir).to.be.null;
 	});
 
 	// DebugElement.providerTokens

@@ -23,8 +23,8 @@ describe('BannerComponent (inline template)', () => {
 
 		comp = fixture.componentInstance; // BannerComponent test instance
 
-			// query for the title <h1> by CSS element selector
-			de = fixture.debugElement.query(By.css('h1'));
+		// query for the title <h1> by CSS element selector
+		de = fixture.debugElement.query(By.css('h1'));
 		el = de.nativeElement;
 	});
 

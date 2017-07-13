@@ -99,12 +99,10 @@ function beforeEachTests() {
 	fixture.detectChanges();
 
 	// find DebugElements with an attached RouterLinkStubDirective
-	linkDes = fixture.debugElement
-		.queryAll(By.directive(RouterLinkStubDirective));
+	linkDes = fixture.debugElement.queryAll(By.directive(RouterLinkStubDirective));
 
 	// get the attached link directive instances using the DebugElement injectors
-	links = linkDes
-		.map(de => de.injector.get(RouterLinkStubDirective) as RouterLinkStubDirective);
+	links = linkDes.map(de => de.injector.get(RouterLinkStubDirective) as RouterLinkStubDirective);
 }
 
 function tests() {

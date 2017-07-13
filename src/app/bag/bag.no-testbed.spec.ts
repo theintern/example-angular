@@ -68,8 +68,8 @@ describe('DependentService without the TestBed', () => {
 		service = new DependentService(fancy);
 
 		expect(service.getValue()).to.equal(stubValue, 'service returned stub value');
-		expect(spy.callCount).to.equal(1, 'stubbed method was called once');
-		expect(spy.lastCall.returnValue).to.equal(stubValue);
+		expect(spy, 'stubbed method was called once').to.have.been.calledOnce;
+		expect(spy).to.have.always.returned(stubValue);
 	});
 });
 

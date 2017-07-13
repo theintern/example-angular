@@ -1,12 +1,7 @@
 intern.registerPlugin('angular-shim', async () => {
 	async function initTestEnv() {
-		const [
-			{ TestBed },
-			{ BrowserDynamicTestingModule, platformBrowserDynamicTesting }
-		] = await Promise.all([
-			SystemJS.import('@angular/core/testing'),
-			SystemJS.import('@angular/platform-browser-dynamic/testing')
-		]);
+		const { TestBed } = await SystemJS.import('@angular/core/testing');
+		const { BrowserDynamicTestingModule, platformBrowserDynamicTesting } = await SystemJS.import('@angular/platform-browser-dynamic/testing');
 
 		TestBed.initTestEnvironment(
 			BrowserDynamicTestingModule,
@@ -18,12 +13,16 @@ intern.registerPlugin('angular-shim', async () => {
 				TestBed.resetTestingModule();
 			};
 		});
+
+		const sinonChai = await SystemJS.import('sinon-chai');
+		intern.getPlugin('chai').use(sinonChai);
 	}
 
 	await intern.loadScript('dist/systemjs.config.js');
 
 	SystemJS.config({
 		map: {
+			'@angular/animations/browser/testing': 'npm:@angular/animations/bundles/animations-browser-testing.umd.js',
 			'@angular/core/testing': 'npm:@angular/core/bundles/core-testing.umd.js',
 			'@angular/common/testing': 'npm:@angular/common/bundles/common-testing.umd.js',
 			'@angular/compiler/testing': 'npm:@angular/compiler/bundles/compiler-testing.umd.js',

@@ -319,14 +319,14 @@ describe('TestBed Component Tests', () => {
 		expect(el.attributes['account']).to.equal(childComp.id, 'account attribute');
 		expect(el.attributes['bank']).to.equal(childComp.bank, 'bank attribute');
 
-		expect(el.classes['closed']).to.equal(true, 'closed class');
-		expect(el.classes['open']).to.equal(false, 'open class');
+		expect(el.classes['closed'], 'closed class').to.be.true;
+		expect(el.classes['open'], 'open class').to.be.false;
 
 		expect(el.styles['color']).to.equal(comp.color, 'color style');
 		expect(el.styles['width']).to.equal(comp.width + 'px', 'width style');
 
 		// Removed on 12/02/2016 when ceased public discussion of the `Renderer`. Revive in future?
-		// expect(el.properties['customProperty']).to.equal(true, 'customProperty');
+		// expect(el.properties['customProperty'], 'customProperty').to.be.true;
 
 		});
 
@@ -423,9 +423,9 @@ describe('TestBed Component Overrides:', () => {
 		expect(testBedProvider).not.to.equal(tcProvider, 'testBed/tc not same providers');
 		expect(testBedProvider).not.to.equal(tpcProvider, 'testBed/tpc not same providers');
 
-		expect(testBedProvider instanceof FancyService).to.equal(true, 'testBedProvider is FancyService');
+		expect(testBedProvider).to.be.instanceOf(FancyService, 'testBedProvider is FancyService');
 		expect(tcProvider).to.deep.equal({}, 'tcProvider is {}');
-		expect(tpcProvider instanceof FakeFancyService).to.equal(true, 'tpcProvider is FakeFancyService');
+		expect(tpcProvider).to.be.instanceOf(FakeFancyService, 'tpcProvider is FakeFancyService');
 	});
 
 	it('can access template local variables as references', () => {
@@ -455,14 +455,13 @@ describe('TestBed Component Overrides:', () => {
 		const el = fixture.debugElement.children[0];
 		const comp = el.componentInstance;
 
-		expect(comp.children.toArray().length).to.equal(4,
-			'three different child components and an ElementRef with #content');
+		expect(comp.children.toArray()).to.have.lengthOf(4, 'three different child components and an ElementRef with #content');
 
 		expect(el.references['nc']).to.equal(comp, '#nc reference to component');
 
 		// Filter for DebugElements with a #content reference
 		const contentRefs = el.queryAll( de => de.references['content']);
-		expect(contentRefs.length).to.equal(4, 'elements w/ a #content reference');
+		expect(contentRefs).to.have.lengthOf(4, 'elements w/ a #content reference');
 	});
 
 });
@@ -518,28 +517,28 @@ describe('Lifecycle hooks w/ MyIfParentComp', () => {
 	});
 
 	it('should instantiate parent component', () => {
-		expect(parent).not.to.equal(null, 'parent component should exist');
+		expect(parent, 'parent component should exist').not.to.be.null;
 	});
 
 	it('parent component OnInit should NOT be called before first detectChanges()', () => {
-		expect(parent.ngOnInitCalled).to.equal(false);
+		expect(parent.ngOnInitCalled).to.be.false;
 	});
 
 	it('parent component OnInit should be called after first detectChanges()', () => {
 		fixture.detectChanges();
-		expect(parent.ngOnInitCalled).to.equal(true);
+		expect(parent.ngOnInitCalled).to.be.true;
 	});
 
 	it('child component should exist after OnInit', () => {
 		fixture.detectChanges();
 		getChild();
-		expect(child instanceof MyIfChildComponent).to.equal(true, 'should create child');
+		expect(child).to.be.instanceOf(MyIfChildComponent, 'should create child');
 	});
 
 	it('should have called child component\'s OnInit ', () => {
 		fixture.detectChanges();
 		getChild();
-		expect(child.ngOnInitCalled).to.equal(true);
+		expect(child.ngOnInitCalled).to.be.true;
 	});
 
 	it('child component called OnChanges once', () => {
@@ -589,7 +588,7 @@ describe('Lifecycle hooks w/ MyIfParentComp', () => {
 		click(btn);
 
 		fixture.detectChanges();
-		expect(child.ngOnDestroyCalled).to.equal(true);
+		expect(child.ngOnDestroyCalled).to.be.true;
 	});
 
 	////// helpers ///

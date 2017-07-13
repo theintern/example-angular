@@ -85,7 +85,7 @@ function overrideSetup() {
 	let hdsSpy: HeroDetailServiceSpy;
 
 	it('should have called `getHero`', () => {
-		expect(hdsSpy.getHero.calledOnce).to.equal(true, 'getHero called once');
+		expect(hdsSpy.getHero, 'getHero called once').to.have.been.calledOnce;
 	});
 
 	it('should display stub hero\'s name', () => {
@@ -103,18 +103,19 @@ function overrideSetup() {
 		expect(hdsSpy.testHero.name).to.equal(origName, 'service hero unchanged before save');
 
 		click(page.saveBtn);
-		expect(hdsSpy.saveHero.calledOnce).to.equal(true, 'saveHero called once');
+		expect(hdsSpy.saveHero, 'saveHero called once').to.have.been.calledOnce;
 
 		await hdsSpy.saveHero.lastCall.returnValue;
+
 		expect(hdsSpy.testHero.name).to.equal(newName, 'service hero has new name after save');
-		expect(page.navSpy.called).to.equal(true, 'router.navigate called');
+		expect(page.navSpy, 'router.navigate called').to.have.been.called;
 	});
 
 	it('fixture injected service is not the component injected service',
 		inject([HeroDetailService], (service: HeroDetailService) => {
 
 			expect(service).to.deep.equal({}, 'service injected from fixture');
-			expect(Boolean(hdsSpy)).to.equal(true, 'service injected into component');
+			expect(hdsSpy, 'service injected into component').to.exist;
 		})
 	);
 }
@@ -155,7 +156,7 @@ function heroModuleSetup() {
 
 		it('should navigate when click cancel', () => {
 			click(page.cancelBtn);
-			expect(page.navSpy.called).to.equal(true, 'router.navigate called');
+			expect(page.navSpy, 'router.navigate called').to.have.been.called;
 		});
 
 		it('should save when click save but not navigate immediately', () => {
@@ -165,8 +166,8 @@ function heroModuleSetup() {
 			const saveSpy = spy(hds, 'saveHero');
 
 			click(page.saveBtn);
-			expect(saveSpy.called).to.equal(true, 'HeroDetailService.save called');
-			expect(page.navSpy.called).to.equal(false, 'router.navigate not called');
+			expect(saveSpy, 'HeroDetailService.save called').to.have.been.called;
+			expect(page.navSpy, 'router.navigate not called').not.to.have.been.called;
 		});
 
 		it('should navigate when click save and save resolves', async () => {
@@ -177,7 +178,7 @@ function heroModuleSetup() {
 
 			await saveSpy.lastCall.returnValue;
 
-			expect(page.navSpy.called).to.equal(true, 'router.navigate called');
+			expect(page.navSpy, 'router.navigate called').to.have.been.called;
 		});
 
 		it('should convert hero name to Title Case', () => {
@@ -216,8 +217,8 @@ function heroModuleSetup() {
 		});
 
 		it('should try to navigate back to hero list', () => {
-			expect(page.gotoSpy.called).to.equal(true, 'comp.gotoList called');
-			expect(page.navSpy.called).to.equal(true, 'router.navigate called');
+			expect(page.gotoSpy, 'comp.gotoList called').to.have.been.called;
+			expect(page.navSpy, 'router.navigate called').to.have.been.called;
 		});
 	});
 

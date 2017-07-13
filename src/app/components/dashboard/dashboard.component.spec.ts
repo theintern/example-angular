@@ -107,8 +107,7 @@ function tests(heroClick: Function) {
 		});
 
 		it('should HAVE heroes', () => {
-			expect(comp.heroes).to.have.lengthOf.above(0,
-				'should have heroes after service promise resolves');
+			expect(comp.heroes).to.have.lengthOf.above(0, 'should have heroes after service promise resolves');
 		});
 
 		it('should DISPLAY heroes', () => {
@@ -125,13 +124,11 @@ function tests(heroClick: Function) {
 
 				heroClick(); // trigger click on first inner <div class="hero">
 
-				// args passed to router.navigateByUrl()
-				const navArgs = navigateSpy.firstCall.args[0];
-
-				// expecting to navigate to id of the component's first hero
 				const id = comp.heroes[0].id;
-				expect(navArgs).to.equal('/heroes/' + id,
-					'should nav to HeroDetail for first hero');
+				// expecting to navigate to id of the component's first hero
+				expect(navigateSpy, 'should nav to HeroDetail for first hero')
+					.to.have.been.calledWithExactly(`/heroes/${id}`)
+				;
 			})
 		);
 	});

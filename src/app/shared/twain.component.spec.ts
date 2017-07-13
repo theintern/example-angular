@@ -43,14 +43,14 @@ describe('TwainComponent', () => {
 
 	it('should not show quote before OnInit', () => {
 		expect(el.textContent).to.equal('', 'nothing displayed');
-		expect(getQuoteSpy.called).to.equal(false, 'getQuote not yet called');
+		expect(getQuoteSpy.called, 'getQuote not yet called').to.be.false;
 	});
 
 	it('should still not show quote after component initialized', () => {
 		fixture.detectChanges();
 		// getQuote service is async => still has not returned with quote
 		expect(el.textContent).to.equal('...', 'no quote yet');
-		expect(getQuoteSpy.called).to.equal(true, 'getQuote called');
+		expect(getQuoteSpy, 'getQuote called').to.have.been.called;
 	});
 
 	it('should show quote after getQuote promise', async () => {

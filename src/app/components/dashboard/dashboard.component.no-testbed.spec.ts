@@ -24,8 +24,7 @@ describe('DashboardComponent: w/o Angular TestBed', () => {
 	});
 
 	it('should NOT have heroes before calling OnInit', () => {
-		expect(comp.heroes).to.have.lengthOf(0,
-			'should not have heroes before OnInit');
+		expect(comp.heroes).to.have.lengthOf(0, 'should not have heroes before OnInit');
 	});
 
 	it('should NOT have heroes immediately after OnInit', async () => {
@@ -37,8 +36,7 @@ describe('DashboardComponent: w/o Angular TestBed', () => {
 	it('should HAVE heroes after HeroService gets them', async () => {
 		comp.ngOnInit(); // ngOnInit -> getHeroes
 		await heroService.lastPromise; // the one from getHeroes
-		expect(comp.heroes).to.have.lengthOf.above(0,
-			'should have heroes after service promise resolves');
+		expect(comp.heroes).to.have.lengthOf.above(0, 'should have heroes after service promise resolves');
 	});
 
 	it('should tell ROUTER to navigate by hero id', () => {
@@ -47,7 +45,8 @@ describe('DashboardComponent: w/o Angular TestBed', () => {
 
 		comp.gotoDetail(hero);
 
-		const navArgs = navigateSpy.firstCall.args[0];
-		expect(navArgs).to.equal('/heroes/42', 'should nav to HeroDetail for Hero 42');
+		expect(navigateSpy, 'should nav to HeroDetail for Hero 42')
+			.to.have.been.calledWithExactly(`/heroes/42`)
+		;
 	});
 });

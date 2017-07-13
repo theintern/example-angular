@@ -28,6 +28,7 @@
     ],
     "types": [
       "intern",
+      "sinon-chai",
       "zone.js",
       "systemjs"
     ]

@@ -65,7 +65,7 @@ describe('Http-HeroService (mockBackend)', () => {
 			backend = be;
 			service = new HeroService(http);
 			fakeHeroes = makeHeroData();
-			let options = new ResponseOptions({
+			const options = new ResponseOptions({
 				status: 200,
 				body: {data: fakeHeroes}
 			});
