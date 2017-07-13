@@ -13,9 +13,10 @@ import { SpyLocation }         from '@angular/common/testing';
 
 import { click, advance } from '../testing/utils';
 
-// r - for relatively obscure router symbols
-import * as r                         from  '@angular/router';
-import { Router, RouterLinkWithHref } from '@angular/router';
+import {
+	Router, RouterLinkWithHref, Event as RouterEvent, NavigationStart,
+	NavigationEnd, RoutesRecognized, RouteConfigLoadStart, RouteConfigLoadEnd
+} from '@angular/router';
 
 import { By }                 from '@angular/platform-browser';
 import { DebugElement, Type } from '@angular/core';
@@ -60,8 +61,9 @@ describe('AppComponent & RouterTestingModule', () => {
 		expectElementOf(AboutComponent);
 
 		page.expectEvents([
-			[r.NavigationStart, '/about'], [r.RoutesRecognized, '/about'],
-			[r.NavigationEnd, '/about']
+			[NavigationStart, '/about'],
+			[RoutesRecognized, '/about'],
+			[NavigationEnd, '/about']
 		]);
 	});
 
@@ -75,28 +77,29 @@ describe('AppComponent & RouterTestingModule', () => {
 	});
 
 	// Can't navigate to lazy loaded modules with this technique
-	/*xit('should navigate to "Heroes" on click', async (() => {
-		createComponent();
-		page.heroesLinkDe.nativeElement.click();
+	it('should navigate to "Heroes" on click', async function () {
+		this.skip('lazy loaded navigation doesn\'t work');
+
+		await createComponent();
+		click(page.heroesLinkDe);
 		await advance(fixture);
 		expectPathToBe('/heroes');
-	}));*/
+	});
 
 });
 
 
 ///////////////
-/*import { NgModuleFactoryLoader }    from '@angular/core';
+import { NgModuleFactoryLoader }    from '@angular/core';
 import { SpyNgModuleFactoryLoader } from '@angular/router/testing';
 
-import { HeroModule }             from './hero/hero.module';  // should be lazy loaded
-import { HeroListComponent }      from './hero/hero-list.component';
+import { HeroModule }             from './components/hero/hero.module';  // should be lazy loaded
+import { HeroListComponent }      from './components/hero/hero-list.component';
 
-let loader: SpyNgModuleFactoryLoader;*/
+let loader: SpyNgModuleFactoryLoader;
 
 ///////// Can't get lazy loaded Heroes to work yet
-/*xdescribe('AppComponent & Lazy Loading', () => {
-
+describe('AppComponent & Lazy Loading', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 				imports: [ AppModule, RouterTestingModule ]
@@ -105,31 +108,36 @@ let loader: SpyNgModuleFactoryLoader;*/
 		;
 		await createComponent();
 		loader   = TestBed.get(NgModuleFactoryLoader);
-		loader.stubbedModules = {expected: HeroModule};
+		loader.stubbedModules = { expected: HeroModule };
 		router.resetConfig([{path: 'heroes', loadChildren: 'expected'}]);
 	});
 
-	it('dummy', () => expect(true).toBe(true) );
+	it('dummy', () => {
+		expect(true).to.be.true;
+	});
 
-	it('should navigate to "Heroes" on click', async(() => {
-		page.heroesLinkDe.nativeElement.click();
+	it('should navigate to "Heroes" on click', async () => {
+		click(page.heroesLinkDe);
 		await advance(fixture);
 		expectPathToBe('/heroes');
 		expectElementOf(HeroListComponent);
-	}));
+	});
 
-	xit('can navigate to "Heroes" w/ browser location URL change', async () => {
+	it('can navigate to "Heroes" w/ browser location URL change', async () => {
 		location.go('/heroes');
 		await advance(fixture);
 		expectPathToBe('/heroes');
 		expectElementOf(HeroListComponent);
 
 		page.expectEvents([
-			[r.NavigationStart, '/heroes'], [r.RoutesRecognized, '/heroes'],
-			[r.NavigationEnd, '/heroes']
+			[NavigationStart, '/heroes'],
+			[RouteConfigLoadStart, 'heroes'],
+			[RouteConfigLoadEnd, 'heroes'],
+			[RoutesRecognized, '/heroes'],
+			[NavigationEnd, '/heroes']
 		]);
 	});
-});*/
+});
 
 ////// Helpers /////////
 
@@ -152,7 +160,7 @@ class Page {
 	aboutLinkDe:     DebugElement;
 	dashboardLinkDe: DebugElement;
 	heroesLinkDe:    DebugElement;
-	recordedEvents:  any[]  =  [];
+	recordedEvents:  RouterEvent[]  =  [];
 
 	// for debugging
 	comp: AppComponent;
@@ -160,13 +168,20 @@ class Page {
 	router: Router;
 	fixture: ComponentFixture<AppComponent>;
 
-	expectEvents(pairs: any[]) {
+	expectEvents(pairs: [Type<RouterEvent>, string][]) {
 		const events = this.recordedEvents;
 		expect(events).to.have.lengthOf(pairs.length, 'actual/expected events length mismatch');
-		for (let i = 0; i < events.length; ++i) {
-			expect((<any>events[i].constructor).name).to.equal(pairs[i][0].name, 'unexpected event name');
-			expect((<any>events[i]).url).to.equal(pairs[i][1], 'unexpected event url');
-		}
+		events.forEach((event, index) => {
+			const [ ctor, id ] = pairs[index];
+
+			expect(event).to.be.instanceOf(ctor, 'unexpected event type');
+
+			if (event instanceof RouteConfigLoadEnd || event instanceof RouteConfigLoadStart) {
+				expect(event.route.path).to.equal(id, 'unexpected event path');
+			} else {
+				expect(event.url).to.equal(id, 'unexpected event url');
+			}
+		});
 	}
 
 	constructor() {
@@ -184,11 +199,11 @@ class Page {
 }
 
 function expectPathToBe(path: string, expectationFailOutput?: any) {
-	expect(location.path()).to.deep.equal(path, expectationFailOutput || 'location.path()');
+	expect(location.path()).to.equal(path, expectationFailOutput || 'location.path()');
 }
 
 function expectElementOf(type: Type<any>): any {
 	const el = fixture.debugElement.query(By.directive(type));
-	expect(Boolean(el)).to.be.true;
+	expect(el).to.exist;
 	return el;
 }
