@@ -20,7 +20,7 @@ export function click(element: DebugElement, eventObj: any = ButtonClickEvents.l
 
 export async function tick() {
 	await new Promise(resolve => {
-		setTimeout(resolve);
+		setTimeout(resolve, 50);
 	});
 }
 

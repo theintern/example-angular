@@ -20,7 +20,7 @@ describe('DashboardHeroComponent when tested directly', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-				declarations: [ DashboardHeroComponent ],
+				declarations: [ DashboardHeroComponent ]
 			})
 			.compileComponents() // compile template and css
 		;
@@ -58,7 +58,7 @@ describe('DashboardHeroComponent when inside a test host', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [ DashboardHeroComponent, TestHostComponent ], // declare both
+			declarations: [ DashboardHeroComponent, TestHostComponent ] // declare both
 		}).compileComponents();
 
 		// create TestHostComponent instead of DashboardHeroComponent

@@ -77,8 +77,8 @@ describe('AppComponent & RouterTestingModule', () => {
 	});
 
 	// Can't navigate to lazy loaded modules with this technique
-	it('should navigate to "Heroes" on click', async function () {
-		this.skip('lazy loaded navigation doesn\'t work');
+	it('should navigate to "Heroes" on click', async (test) => {
+		test.skip(`lazy loaded navigation doesn't work`);
 
 		await createComponent();
 		click(page.heroesLinkDe);

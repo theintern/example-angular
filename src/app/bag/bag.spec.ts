@@ -115,7 +115,7 @@ describe('TestBed Component Tests', () => {
 	beforeEach(async () => {
 		await TestBed
 			.configureTestingModule({
-				imports: [BagModule],
+				imports: [BagModule]
 			})
 			// Compile everything in BagModule
 			.compileComponents()
@@ -323,7 +323,7 @@ describe('TestBed Component Tests', () => {
 		expect(el.classes['open'], 'open class').to.be.false;
 
 		expect(el.styles['color']).to.equal(comp.color, 'color style');
-		expect(el.styles['width']).to.equal(comp.width + 'px', 'width style');
+		expect(el.styles['width']).to.equal(`${comp.width}px`, 'width style');
 
 		// Removed on 12/02/2016 when ceased public discussion of the `Renderer`. Revive in future?
 		// expect(el.properties['customProperty'], 'customProperty').to.be.true;
@@ -338,7 +338,7 @@ describe('TestBed Component Overrides:', () => {
 	it('should override ChildComp\'s template', () => {
 
 		const fixture = TestBed.configureTestingModule({
-				declarations: [Child1Component],
+				declarations: [Child1Component]
 			})
 			.overrideComponent(Child1Component, {
 				set: { template: '<span>Fake</span>' }
@@ -352,11 +352,11 @@ describe('TestBed Component Overrides:', () => {
 
 	it('should override TestProvidersComp\'s FancyService provider', () => {
 		const fixture = TestBed.configureTestingModule({
-				declarations: [TestProvidersComponent],
+				declarations: [TestProvidersComponent]
 			})
 			.overrideComponent(TestProvidersComponent, {
 				remove: { providers: [FancyService]},
-				add:    { providers: [{ provide: FancyService, useClass: FakeFancyService }] },
+				add:    { providers: [{ provide: FancyService, useClass: FakeFancyService }] }
 
 				// Or replace them all (this component has only one provider)
 				// set:    { providers: [{ provide: FancyService, useClass: FakeFancyService }] },
@@ -376,7 +376,7 @@ describe('TestBed Component Overrides:', () => {
 
 	it('should override TestViewProvidersComp\'s FancyService viewProvider', () => {
 		const fixture = TestBed.configureTestingModule({
-				declarations: [TestViewProvidersComponent],
+				declarations: [TestViewProvidersComponent]
 			})
 			.overrideComponent(TestViewProvidersComponent, {
 				// remove: { viewProviders: [FancyService]},
@@ -430,7 +430,10 @@ describe('TestBed Component Overrides:', () => {
 
 	it('can access template local variables as references', () => {
 		const fixture = TestBed.configureTestingModule({
-				declarations: [ShellComponent, NeedsContentComponent, Child1Component, Child2Component, Child3Component],
+				declarations: [
+					ShellComponent, NeedsContentComponent, Child1Component,
+					Child2Component, Child3Component
+				]
 			})
 			.overrideComponent(ShellComponent, {
 				set: {

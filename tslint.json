@@ -52,6 +52,7 @@
       "check-else",
       "check-whitespace"
     ],
+    "prefer-template": true,
     "quotemark": [
       true,
       "single"
@@ -60,6 +61,10 @@
     "semicolon": [
       "always"
     ],
+    "trailing-comma": [true, {
+      "multiline": "never",
+      "singleline": "never"
+    }],
     "triple-equals": [
       true,
       "allow-null-check"

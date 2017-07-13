@@ -134,7 +134,7 @@ function heroModuleSetup() {
 				providers: [
 					{ provide: ActivatedRoute, useValue: activatedRoute },
 					{ provide: HeroService,    useClass: FakeHeroService },
-					{ provide: Router,         useClass: RouterStub},
+					{ provide: Router,         useClass: RouterStub}
 				]
 			})
 			.compileComponents()
@@ -252,7 +252,7 @@ function formsModuleSetup() {
 				providers: [
 					{ provide: ActivatedRoute, useValue: activatedRoute },
 					{ provide: HeroService,    useClass: FakeHeroService },
-					{ provide: Router,         useClass: RouterStub},
+					{ provide: Router,         useClass: RouterStub}
 				]
 			})
 			.compileComponents()
@@ -278,7 +278,7 @@ function sharedModuleSetup() {
 				providers: [
 					{ provide: ActivatedRoute, useValue: activatedRoute },
 					{ provide: HeroService,    useClass: FakeHeroService },
-					{ provide: Router,         useClass: RouterStub},
+					{ provide: Router,         useClass: RouterStub}
 				]
 			})
 			.compileComponents()

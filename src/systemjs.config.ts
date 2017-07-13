@@ -1,6 +1,6 @@
 SystemJS.config({
 	paths: {
-		'npm:': SystemJS.baseURL + '../node_modules/'
+		'npm:': `${SystemJS.baseURL}../node_modules/`
 	},
 
 	map: {

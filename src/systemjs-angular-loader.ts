@@ -28,7 +28,7 @@ export function translate(load: { source: string; address: string; }) {
 				resolvedUrl = basePath + resolvedUrl.substr(1);
 			}
 
-			return 'templateUrl: "' + resolvedUrl + '"';
+			return `templateUrl: "${resolvedUrl}"`;
 		})
 		.replace(stylesRegex, function(_, relativeUrls) {
 			const urls = [];
@@ -36,9 +36,9 @@ export function translate(load: { source: string; address: string; }) {
 
 			while ((match = stringRegex.exec(relativeUrls)) !== null) {
 				if (match[2].startsWith('.')) {
-					urls.push('"' + basePath + match[2].substr(1) + '"');
+					urls.push(`"${basePath}${match[2].substr(1)}"`);
 				} else {
-					urls.push('"' + match[2] + '"');
+					urls.push(`"${match[2]}"`);
 				}
 			}
 

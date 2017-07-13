@@ -24,7 +24,7 @@ describe('TwainComponent', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
 			declarations: [ TwainComponent ],
-			providers:    [ TwainService ],
+			providers:    [ TwainService ]
 		});
 
 		fixture = TestBed.createComponent(TwainComponent);

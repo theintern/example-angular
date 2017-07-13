@@ -1,6 +1,3 @@
-const chai = intern.getPlugin('chai');
-import 'sinon';
-
 function elementText(element: any): string {
 	if (Array.isArray(element)) {
 		return element.map(elementText).join('');
@@ -21,14 +18,16 @@ function elementText(element: any): string {
 	return element.textContent;
 }
 
-chai.use(({ Assertion }, utils: any) => {
+export function addNodeText({ Assertion }: any, utils: any) {
 	Assertion.addMethod('nodeText', function (str: string) {
 		const obj = utils.flag(this, 'object');
 		const text = elementText(obj);
 
 		new Assertion(text).to.contain(str);
 	});
-});
+}
+
+intern.getPlugin('chai').use(addNodeText);
 
 declare global {
 	namespace Chai {

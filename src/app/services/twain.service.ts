@@ -10,7 +10,7 @@ const quotes = [
 	'It\'s not the size of the dog in the fight, it\'s the size of the fight in the dog.',
 	'Truth is stranger than fiction, but it is because Fiction is obliged to stick to possibilities; Truth isn\'t.',
 	'The man who does not read good books has no advantage over the man who cannot read them.',
-	'Get your facts first, and then you can distort them as much as you please.',
+	'Get your facts first, and then you can distort them as much as you please.'
 ];
 
 @Injectable()

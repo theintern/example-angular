@@ -15,7 +15,7 @@ describe('BannerComponent (templateUrl)', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-				declarations: [ BannerComponent ], // declare the test component
+				declarations: [ BannerComponent ] // declare the test component
 			})
 			.compileComponents()  // compile template and css
 		;

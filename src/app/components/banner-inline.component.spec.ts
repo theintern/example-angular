@@ -16,7 +16,7 @@ describe('BannerComponent (inline template)', () => {
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			declarations: [ BannerComponent ], // declare the test component
+			declarations: [ BannerComponent ] // declare the test component
 		});
 
 		fixture = TestBed.createComponent(BannerComponent);
