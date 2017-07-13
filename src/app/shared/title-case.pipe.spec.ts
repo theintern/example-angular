@@ -1,7 +1,7 @@
-import { TitleCasePipe } from './title-case.pipe';
-
 const { describe, it } = intern.getPlugin('interface.bdd');
 const { expect } = intern.getPlugin('chai');
+
+import { TitleCasePipe } from './title-case.pipe';
 
 describe('TitleCasePipe', () => {
 	// This pipe is a pure, stateless function so no need for BeforeEach

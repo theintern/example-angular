@@ -1,14 +1,14 @@
+const { describe, it, beforeEach } = intern.getPlugin('interface.bdd');
+const { expect } = intern.getPlugin('chai');
+
+import { stub, SinonStub } from 'sinon';
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By }                        from '@angular/platform-browser';
 import { DebugElement }              from '@angular/core';
 
 import { TwainService }   from '../services/twain.service';
 import { TwainComponent } from './twain.component';
-
-const { describe, it, beforeEach } = intern.getPlugin('interface.bdd');
-const { expect } = intern.getPlugin('chai');
-
-import { stub, SinonStub } from 'sinon';
 
 describe('TwainComponent', () => {
 	let comp: TwainComponent;

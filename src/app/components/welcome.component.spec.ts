@@ -1,12 +1,12 @@
+const { describe, it, beforeEach } = intern.getPlugin('interface.bdd');
+const { expect } = intern.getPlugin('chai');
+
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { By }                                from '@angular/platform-browser';
 import { DebugElement }                      from '@angular/core';
 
 import { UserService }      from '../services/user.service';
 import { WelcomeComponent } from './welcome.component';
-
-const { describe, it, beforeEach } = intern.getPlugin('interface.bdd');
-const { expect } = intern.getPlugin('chai');
 
 describe('WelcomeComponent', () => {
 	let comp: WelcomeComponent;

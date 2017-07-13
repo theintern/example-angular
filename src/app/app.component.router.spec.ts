@@ -11,6 +11,8 @@ import { stub } from 'sinon';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SpyLocation }         from '@angular/common/testing';
 
+import { click, advance } from '../testing/utils';
+
 // r - for relatively obscure router symbols
 import * as r                         from  '@angular/router';
 import { Router, RouterLinkWithHref } from '@angular/router';
@@ -49,11 +51,10 @@ describe('AppComponent & RouterTestingModule', () => {
 
 	it('should navigate to "About" on click', async () => {
 		await createComponent();
-		page.aboutLinkDe.triggerEventHandler('click', null);
+		click(page.aboutLinkDe);
 		// page.aboutLinkDe.nativeElement.click(); // ok but fails in phantom
 
-		await fixture.whenStable();
-
+		await advance(fixture);
 		// advance();
 		expectPathToBe('/about');
 		expectElementOf(AboutComponent);
@@ -68,7 +69,7 @@ describe('AppComponent & RouterTestingModule', () => {
 		await createComponent();
 		location.simulateHashChange('/about');
 		// location.go('/about'); // also works ... except in plunker
-		// advance();
+		await advance(fixture);
 		expectPathToBe('/about');
 		expectElementOf(AboutComponent);
 	});
@@ -77,7 +78,7 @@ describe('AppComponent & RouterTestingModule', () => {
 	/*xit('should navigate to "Heroes" on click', async (() => {
 		createComponent();
 		page.heroesLinkDe.nativeElement.click();
-		advance();
+		await advance(fixture);
 		expectPathToBe('/heroes');
 	}));*/
 
@@ -112,14 +113,14 @@ let loader: SpyNgModuleFactoryLoader;*/
 
 	it('should navigate to "Heroes" on click', async(() => {
 		page.heroesLinkDe.nativeElement.click();
-		advance();
+		await advance(fixture);
 		expectPathToBe('/heroes');
 		expectElementOf(HeroListComponent);
 	}));
 
 	xit('can navigate to "Heroes" w/ browser location URL change', async () => {
 		location.go('/heroes');
-		advance();
+		await advance(fixture);
 		expectPathToBe('/heroes');
 		expectElementOf(HeroListComponent);
 
@@ -132,12 +133,6 @@ let loader: SpyNgModuleFactoryLoader;*/
 
 ////// Helpers /////////
 
-/** Wait a tick, then detect changes */
-/*function advance(): void {
-	tick();
-	fixture.detectChanges();
-}*/
-
 async function createComponent() {
 	fixture = TestBed.createComponent(AppComponent);
 	comp = fixture.componentInstance;
@@ -148,10 +143,7 @@ async function createComponent() {
 	router.initialNavigation();
 	stub(injector.get(TwainService), 'getQuote').returns(Promise.resolve('Test Quote')); // fakes it
 
-	fixture.detectChanges();
-	await fixture.whenStable();
-	fixture.detectChanges();
-	// advance();
+	await advance(fixture);
 
 	page = new Page();
 }

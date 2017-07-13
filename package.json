@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "BSD-3-Clause",
   "scripts": {
-    "preci": "npm run dist",
+    "preci": "npm run clean && npm run lint && npm run dist",
     "ci": "npm run test",
     "clean": "rimraf dist coverage",
     "copy": "cpx \"src/**/*.{js,html,css}\" dist",
@@ -12,6 +12,7 @@
     "build": "tsc -p src/",
     "build:watch": "tsc -p src/ -w",
     "dist": "concurrently \"npm run build\" \"npm run copy\"",
+    "lint": "tslint -c tslint.json \"./src/**/*.ts\"",
     "serve": "lite-server -c=bs-config.json",
     "prestart": "npm run dist",
     "start": "concurrently \"npm run build:watch\" \"npm run copy:watch\" \"npm run serve\"",

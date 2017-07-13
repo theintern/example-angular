@@ -1,12 +1,12 @@
+const { describe, it, beforeEach } = intern.getPlugin('interface.bdd');
+const { expect } = intern.getPlugin('chai');
+
 import { Component, DebugElement }   from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { HighlightDirective } from './highlight.directive';
 import { newEvent }           from '../../testing/utils';
-
-const { describe, it, beforeEach } = intern.getPlugin('interface.bdd');
-const { expect } = intern.getPlugin('chai');
 
 @Component({
 	template: `

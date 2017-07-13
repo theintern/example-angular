@@ -1,19 +1,19 @@
+const { describe, it, beforeEach } = intern.getPlugin('interface.bdd');
+const { expect } = intern.getPlugin('chai');
+
+import { spy } from 'sinon';
+
 import { inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { addMatchers, click } from '../../testing';
 import { HeroService }        from '../../services/hero.service';
 import { FakeHeroService }    from '../../../testing/fake-hero.service';
+import { click }    from '../../../testing/utils';
 
 import { By }     from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
 import { DashboardModule }    from './dashboard.module';
-
-const { describe, it, beforeEach } = intern.getPlugin('interface.bdd');
-const { expect } = intern.getPlugin('chai');
-
-import { spy } from 'sinon';
 
 class RouterStub {
 	navigateByUrl(url: string) { return url; }
@@ -39,7 +39,7 @@ describe('DashboardComponent (deep)', () => {
 	function clickForDeep() {
 		// get first <div class="hero"> DebugElement
 		const heroEl = fixture.debugElement.query(By.css('.hero'));
-		heroEl.triggerEventHandler('click', null);
+		click(heroEl);
 	}
 });
 

@@ -1,14 +1,12 @@
-import { Router } from '@angular/router';
-
-import { DashboardComponent } from './dashboard.component';
-import { FakeHeroService, Hero }    from '../../../testing/fake-hero.service';
-
-// import { addMatchers }     from '../../testing';
-
 const { describe, it, beforeEach } = intern.getPlugin('interface.bdd');
 const { expect } = intern.getPlugin('chai');
 
 import { spy } from 'sinon';
+
+import { Router } from '@angular/router';
+
+import { DashboardComponent } from './dashboard.component';
+import { FakeHeroService, Hero }    from '../../../testing/fake-hero.service';
 
 class FakeRouter {
 	navigateByUrl(url: string) { return url;  }

@@ -1,17 +1,15 @@
+const { describe, it, beforeEach } = intern.getPlugin('interface.bdd');
+const { expect } = intern.getPlugin('chai');
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { By }           from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-const { describe, it, beforeEach } = intern.getPlugin('interface.bdd');
-const { expect } = intern.getPlugin('chai');
-
-// import { addMatchers, click } from '../../testing';
+import { click } from '../../../testing/utils';
 
 import { Hero } from '../../models/hero';
 import { DashboardHeroComponent } from './dashboard-hero.component';
-
-// beforeEach( addMatchers );
 
 describe('DashboardHeroComponent when tested directly', () => {
 
@@ -46,7 +44,7 @@ describe('DashboardHeroComponent when tested directly', () => {
 		let selectedHero: Hero;
 		comp.selected.subscribe((hero: Hero) => selectedHero = hero);
 
-		heroEl.triggerEventHandler('click', null);
+		click(heroEl);
 		expect(selectedHero).to.equal(expectedHero);
 	});
 });
@@ -76,7 +74,7 @@ describe('DashboardHeroComponent when inside a test host', () => {
 	});
 
 	it('should raise selected event when clicked', () => {
-		heroEl.triggerEventHandler('click', null);
+		click(heroEl);
 		// selected hero should be the same data bound hero
 		expect(testHost.selectedHero).to.equal(testHost.hero);
 	});

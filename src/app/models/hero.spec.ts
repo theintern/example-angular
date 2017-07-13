@@ -1,7 +1,7 @@
-import { Hero } from './hero';
-
 const { describe, it } = intern.getPlugin('interface.bdd');
 const { expect } = intern.getPlugin('chai');
+
+import { Hero } from './hero';
 
 describe('Hero', () => {
 	it('has name', () => {

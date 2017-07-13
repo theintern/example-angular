@@ -1,6 +1,8 @@
 const { describe, it, beforeEach } = intern.getPlugin('interface.bdd');
 const { expect } = intern.getPlugin('chai');
 
+import { click } from '../testing/utils';
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DebugElement } from '@angular/core';
@@ -122,7 +124,7 @@ function tests() {
 
 		expect(heroesLink.navigatedTo).to.be.null;
 
-		heroesLinkDe.triggerEventHandler('click', null);
+		click(heroesLinkDe);
 		fixture.detectChanges();
 
 		expect(heroesLink.navigatedTo).to.equal('/heroes');

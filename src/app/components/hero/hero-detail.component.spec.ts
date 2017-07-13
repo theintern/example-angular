@@ -1,14 +1,14 @@
-import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
-
-import { By }           from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
 const { describe, it, beforeEach } = intern.getPlugin('interface.bdd');
 const { expect } = intern.getPlugin('chai');
 
 import { spy, stub, SinonSpy } from 'sinon';
 
-import { newEvent } from '../../../testing/utils';
+import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+
+import { By }           from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+
+import { click, newEvent } from '../../../testing/utils';
 import { ActivatedRoute, ActivatedRouteStub, Router, RouterStub } from '../../../testing/router-stubs';
 
 import { HeroDetailComponent } from './hero-detail.component';
@@ -102,7 +102,7 @@ function overrideSetup() {
 		expect(comp.hero.name).to.equal(newName, 'component hero has new name');
 		expect(hdsSpy.testHero.name).to.equal(origName, 'service hero unchanged before save');
 
-		page.saveBtn.triggerEventHandler('click', null);
+		click(page.saveBtn);
 		expect(hdsSpy.saveHero.calledOnce).to.equal(true, 'saveHero called once');
 
 		await hdsSpy.saveHero.lastCall.returnValue;
@@ -154,7 +154,7 @@ function heroModuleSetup() {
 		});
 
 		it('should navigate when click cancel', () => {
-			page.cancelBtn.triggerEventHandler('click', null);
+			click(page.cancelBtn);
 			expect(page.navSpy.called).to.equal(true, 'router.navigate called');
 		});
 
@@ -164,7 +164,7 @@ function heroModuleSetup() {
 			const hds = fixture.debugElement.injector.get(HeroDetailService);
 			const saveSpy = spy(hds, 'saveHero');
 
-			page.saveBtn.triggerEventHandler('click', null);
+			click(page.saveBtn);
 			expect(saveSpy.called).to.equal(true, 'HeroDetailService.save called');
 			expect(page.navSpy.called).to.equal(false, 'router.navigate not called');
 		});
@@ -173,7 +173,7 @@ function heroModuleSetup() {
 			const hds = fixture.debugElement.injector.get(HeroDetailService);
 			const saveSpy = spy(hds, 'saveHero');
 
-			page.saveBtn.triggerEventHandler('click', null);
+			click(page.saveBtn);
 
 			await saveSpy.lastCall.returnValue;
 

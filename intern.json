@@ -33,7 +33,7 @@
   "configs": {
     "coverage": {
       "reporters+": "htmlcoverage",
-      "excludeInstrumentation": "node_modules\\/|\\.spec\\.js$|dist\\/[^\\/]+\\.js$"
+      "excludeInstrumentation": "(?:node_modules|testing)\\/|\\.spec\\.js$|dist\\/[^\\/]+\\.js$"
     },
 
     "wd": {
