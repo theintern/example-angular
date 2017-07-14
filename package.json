@@ -4,18 +4,23 @@
   "main": "index.js",
   "license": "BSD-3-Clause",
   "scripts": {
-    "preci": "npm run clean && npm run lint && npm run dist",
+    "preci": "npm run clean && npm run lint && npm run build",
     "ci": "npm run test",
-    "clean": "rimraf dist coverage",
+    "clean": "rimraf dist dist-e2e coverage",
     "copy": "cpx \"src/**/*.{js,html,css}\" dist",
     "copy:watch": "cpx \"src/**/*.{js,html,css}\" dist --watch",
-    "build": "tsc -p src/",
-    "build:watch": "tsc -p src/ -w",
-    "dist": "concurrently \"npm run build\" \"npm run copy\"",
+
+    "build": "concurrently --names \"tsc-src,tsc-e2e,copy\" \"npm run build:src\" \"npm run build:e2e\" \"npm run copy\"",
+    "build:watch": "concurrently --names \"tsc-src,tsc-e2e,copy\" \"npm run build:src:watch\" \"npm run build:e2e:watch\" \"npm run copy:watch\"",
+
+    "build:src": "tsc -p src/",
+    "build:src:watch": "tsc -p src/ -w",
+    "build:e2e": "tsc -p e2e/",
+    "build:e2e:watch": "tsc -p e2e/ -w",
+
     "lint": "tslint -c tslint.json \"./src/**/*.ts\"",
     "serve": "lite-server -c=bs-config.json",
-    "prestart": "npm run dist",
-    "start": "concurrently \"npm run build:watch\" \"npm run copy:watch\" \"npm run serve\"",
+    "start": "concurrently \"npm run build:watch\" \"npm run serve\"",
     "test": "intern config=@wdcoverage"
   },
   "dependencies": {

@@ -4,6 +4,7 @@
     "./intern.json"
   ],
   "open": false,
+  "logLevel": "silent",
   "logConnections": false,
   "server": {
     "baseDir": [ "dist", "." ],
