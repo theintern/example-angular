@@ -91,6 +91,8 @@ Since Intern comes with Chai bundled, many of the expectations had to be rewritt
 
 Another change was from using jasmine's `spyOn()` to Sinon.JS's `spy()` and `stub()` as well as `sinon-chai` to add expectations for stubs and spies to `expect()`.
 
+### Asynchronous functions
+
 Similar to the lifecycle functions, any invocation of `it` that used Angular's `async()` or `fakeAsync()` was rewritten to use an asynchronous function. For instance:
 
 ```ts
