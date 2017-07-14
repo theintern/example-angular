@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "BSD-3-Clause",
   "scripts": {
-    "preci": "npm run clean && npm run lint && npm run build",
+    "preci": "npm run clean && npm run lint",
     "ci": "npm run test",
     "clean": "rimraf dist dist-e2e coverage",
     "copy": "cpx \"src/**/*.{js,html,css}\" dist",
@@ -21,6 +21,7 @@
     "lint": "tslint -c tslint.json \"./src/**/*.ts\"",
     "serve": "lite-server -c=bs-config.json",
     "start": "concurrently \"npm run build:watch\" \"npm run serve\"",
+    "pretest": "npm run build",
     "test": "intern config=@wdcoverage"
   },
   "dependencies": {
