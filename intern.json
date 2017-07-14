@@ -1,13 +1,11 @@
 {
+  "defaultTimeout": "5000",
   "browser": {
     "loader": {
-      "script": "systemjs",
-      "options": {
-        "baseURL": "/dist"
-      }
+      "script": "systemjs"
     },
     "plugins": [
-      "intern-angular-shim.js"
+      "dist/intern-angular-shim.js"
     ],
     "suites": [
       "app/app.component.spec",

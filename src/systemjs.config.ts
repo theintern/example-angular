@@ -1,9 +1,12 @@
 SystemJS.config({
+	baseURL: '/dist',
 	paths: {
-		'npm:': `${SystemJS.baseURL}../node_modules/`
+		'npm:': `/node_modules/`
 	},
 
 	map: {
+		'dist': '.',
+		'main': 'main',
 		'app': 'app',
 		'@angular/animations': 'npm:@angular/animations/bundles/animations.umd.js',
 		'@angular/animations/browser': 'npm:@angular/animations/bundles/animations-browser.umd.js',
@@ -27,6 +30,15 @@ SystemJS.config({
 			defaultExtension: 'js',
 			meta: {
 				'./*.js': {
+					loader: 'systemjs-angular-loader.js'
+				}
+			}
+		},
+
+		dist: {
+			defaultExtension: 'js',
+			meta: {
+				'./app/*.js': {
 					loader: 'systemjs-angular-loader.js'
 				}
 			}

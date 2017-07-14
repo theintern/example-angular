@@ -2,6 +2,40 @@ const templateUrlRegex = /templateUrl\s*:(\s*['"`](.*?)['"`]\s*)/gm;
 const stylesRegex = /styleUrls *:(\s*\[[^\]]*?\])/g;
 const stringRegex = /(['`"])((?:[^\\]\\\1|.)*?)\1/g;
 
+function commonPath(path1: string[], path2: string[]) {
+	const length = Math.min(path1.length, path2.length);
+
+	let position: number;
+
+	for (position = 0; position < length; position++) {
+		if (path1[position] !== path2[position]) {
+			position--;
+			break;
+		}
+	}
+
+	return path1.slice(0, position + 1);
+}
+
+function relative(from: string[], to: string[]) {
+	const common = commonPath(from, to);
+
+	to = to.slice(common.length);
+	if (from.length === common.length) {
+		return to;
+	}
+
+	return [...from.slice(common.length).map(_ => '..'), ...to];
+}
+
+const rootUrlParts = (() => {
+	const url = document.createElement('a');
+	url.href = document.baseURI;
+	const parts = url.pathname.split('/');
+	parts.pop();
+	return parts;
+})();
+
 export function translate(load: { source: string; address: string; }) {
 	if (load.source.indexOf('moduleId') !== -1) {
 		return load;
@@ -9,18 +43,18 @@ export function translate(load: { source: string; address: string; }) {
 
 	const url = document.createElement('a');
 	url.href = load.address;
-
-	const basePathParts = url.pathname.split('/');
-
-	basePathParts.pop();
-	let basePath = basePathParts.join('/');
+	const urlParts = url.pathname.split('/');
+	urlParts.pop();
 
 	const baseHref = document.createElement('a');
 	baseHref.href = this.baseURL;
+	const baseHrefParts = baseHref.pathname.split('/');
 
-	if (!baseHref.pathname.startsWith('/dist/')) {
-		basePath = basePath.replace(baseHref.pathname, '');
-	}
+	const relPath = relative(rootUrlParts, baseHrefParts).join('/');
+
+	let basePath = urlParts.join('/');
+	basePath = basePath.replace(baseHref.pathname, '');
+	basePath = `${relPath}${basePath}`;
 
 	load.source = load.source
 		.replace(templateUrlRegex, function(_, __, resolvedUrl){
