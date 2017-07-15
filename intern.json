@@ -35,9 +35,28 @@
     "dist-e2e/app.e2e-spec"
   ],
   "configs": {
+    "ci": {
+      "extends": [ "plain", "wdcoverage" ],
+      "environments+": [
+        { "browserName": "firefox" }
+      ]
+    },
+
     "coverage": {
-      "reporters+": "htmlcoverage",
+      "reporters+": [ "htmlcoverage", "jsoncoverage" ],
       "excludeInstrumentation": "(?:node_modules|testing|e2e)\\/|[.-]spec\\.js$|dist\\/[^\\/]+\\.js$"
+    },
+
+    "local": {
+      "extends": [ "pretty", "wdcoverage" ]
+    },
+
+    "plain": {
+      "reporters": [ "runner" ]
+    },
+
+    "pretty": {
+      "reporters": [ "pretty" ]
     },
 
     "wd": {

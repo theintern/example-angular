@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "BSD-3-Clause",
   "scripts": {
-    "preci": "npm run clean && npm run lint",
-    "ci": "npm run test",
+    "preci": "npm run clean && npm run lint && npm run build",
+    "ci": "intern config=@ci",
     "clean": "rimraf dist dist-e2e coverage",
     "copy": "cpx \"src/**/*.{js,html,css}\" dist",
     "copy:watch": "cpx \"src/**/*.{js,html,css}\" dist --watch",
@@ -19,7 +19,7 @@
     "serve": "lite-server -c=bs-config.json",
     "start": "concurrently \"npm run build:watch\" \"npm run serve\"",
     "pretest": "npm run build",
-    "test": "intern config=@wdcoverage"
+    "test": "intern config=@local"
   },
   "dependencies": {
     "@angular/animations": "^4.2.6",
