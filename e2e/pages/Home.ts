@@ -1,4 +1,5 @@
 import Page from './Page';
+import { By } from './locators';
 
 export async function load() {
 	const { parent: remote } = this;
@@ -8,14 +9,16 @@ export async function load() {
 }
 
 export default class Home extends Page {
-	protected _app = 'my-app[ng-version]';
-	protected _dashboard = 'my-app app-dashboard';
-	protected _heroes = 'my-app app-heroes';
-	protected _about = 'my-app app-about';
+	protected _app = By.css('my-app[ng-version]');
+	protected _nav = this._app.xpath('./nav');
+	protected _dashboard = this._app.css('app-dashboard');
+	protected _heroes = this._app.css('app-heroes');
+	protected _about = this._app.css('app-about');
 
 	async load() {
-		const { _remote: remote } = this;
-		await remote.setFindTimeout(5000);
+		await super.load();
+
+		const { remote } = this;
 		await remote.get('dist/index.html');
 		await this.waitForApp();
 	}
@@ -25,7 +28,7 @@ export default class Home extends Page {
 	}
 
 	async getNav() {
-		return this._find('my-app > nav');
+		return this._find(this._nav);
 	}
 
 	async getDashboard() {
@@ -38,10 +41,6 @@ export default class Home extends Page {
 
 	async getAbout() {
 		return this._find(this._about);
-	}
-
-	async getCurrentUrl() {
-		return this._remote.getCurrentUrl();
 	}
 
 	async clickHeroesNav() {
@@ -70,7 +69,7 @@ export default class Home extends Page {
 
 	protected async _clickNav(route: string) {
 		const nav = await this.getNav();
-		const link = await nav.findByCssSelector(`a[routerLink="${route}"]`);
+		const link = await this._find(By.xpath(`./a[@routerlink="${route}"]`), nav);
 		await link.click();
 	}
 }
