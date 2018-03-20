@@ -1,10 +1,10 @@
 import { Command, Element } from '@theintern/leadfoot';
-import { Strategies } from '@theintern/leadfoot/lib/Locator';
+import { Strategy } from '@theintern/leadfoot/lib/Locator';
 
-export { Strategies }
+export { Strategy }
 
 export interface LocatorArg {
-	readonly using: Strategies;
+	readonly using: Strategy;
 	readonly value: string;
 };
 
@@ -47,7 +47,7 @@ export class Locator {
 		return this.add('xpath', value);
 	}
 
-	protected add(using: Strategies, value: string) {
+	protected add(using: Strategy, value: string) {
 		return new Locator([...this.args, { using, value }]);
 	}
 }

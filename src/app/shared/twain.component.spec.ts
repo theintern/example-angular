@@ -11,7 +11,6 @@ import { TwainService }   from '../services/twain.service';
 import { TwainComponent } from './twain.component';
 
 describe('TwainComponent', () => {
-	let comp: TwainComponent;
 	let fixture: ComponentFixture<TwainComponent>;
 
 	let getQuoteSpy: SinonStub;
@@ -28,7 +27,6 @@ describe('TwainComponent', () => {
 		});
 
 		fixture = TestBed.createComponent(TwainComponent);
-		comp    = fixture.componentInstance;
 
 		// TwainService actually injected into the component
 		twainService = fixture.debugElement.injector.get(TwainService);

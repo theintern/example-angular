@@ -9,7 +9,6 @@ import { UserService }      from '../services/user.service';
 import { WelcomeComponent } from './welcome.component';
 
 describe('WelcomeComponent', () => {
-	let comp: WelcomeComponent;
 	let fixture: ComponentFixture<WelcomeComponent>;
 	let componentUserService: UserService; // the actually injected service
 	let userService: UserService; // the TestBed injected service
@@ -38,7 +37,6 @@ describe('WelcomeComponent', () => {
 		;
 
 		fixture = TestBed.createComponent(WelcomeComponent);
-		comp    = fixture.componentInstance;
 
 		// UserService actually injected into the component
 		userService = fixture.debugElement.injector.get(UserService);
